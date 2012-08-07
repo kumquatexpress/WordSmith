@@ -2,7 +2,6 @@
 var projectile : GameObject;
 var time: float;
 var timer : Timer;
-var slowdown : boolean;
 var x : int = 0;
 static var SPEED = -7;
 
@@ -23,13 +22,8 @@ function Update () {
         x = -19;
     }
         //If the slowdown buff is applied, reduce speed
-    if(slowdown){
-        var slowx = x/2;
-        projectile.rigidbody.velocity = Vector3(0,0,slowx); 
-    }
-	else {
-		projectile.rigidbody.velocity = Vector3(0,0,x); 
-	}
+  	projectile.rigidbody.velocity = Vector3(0,0,x); 
+
     if(projectile.transform.position.z < -30){
         Destroy(projectile);
     }     

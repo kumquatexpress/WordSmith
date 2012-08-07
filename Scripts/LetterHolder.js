@@ -2,7 +2,7 @@
 var font : Font;
 
 var letters = new Array();
-var score = 0;
+static var gameScore = 0;
 var tempscore = 0;
 
 var timer : Timer;
@@ -10,6 +10,8 @@ var timer : Timer;
 var lettertext : String = "";
 var scoretext : String = "";
 var tempscoretext: String = "";
+var longestword : String = "";
+var buffs : String = "";
 // Use this for initialization
 
 function Start(){
@@ -29,6 +31,8 @@ function OnGUI () {
 	//instantiates the letter display and the score display
 	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle);
 	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
+	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
+	GUI.Label(Rect(10, 200, 80, 40), buffs, mystyle);
 	
 	if(letters.length > 3){
 	GUI.color = Color.red;
@@ -43,9 +47,13 @@ function OnGUI () {
 
 // Update is called once per frame
 function Update () {
+	//update the text
+	buffs = MainLevel.buffs();
 	lettertext = "Letters: " + '\n' + getText();
-	scoretext = "Score: " + score.ToString();
+	scoretext = "Score: " + gameScore.ToString();
 	tempscoretext = "Current Value: " + calculateValue(tempscore);
+	longestword = "Longest word: " + MainLevel.longestword.ToLower();
+	
 	if(Input.GetKey(KeyCode.Space)){
 		if(Dictionary.checkForWord(getWord())){
 			submitWord();
@@ -85,6 +93,31 @@ function addLetter(s: String){
 	}
 	//add letterscore to the score display
 	tempscore += letterscore;
+}
+
+function addBuff(s : String){
+Debug.Log("added buff named: " + s.ToLower());
+	if(s.ToLower().Equals("!")){
+		var level : int = PlayerPrefs.GetInt("Slow");
+		if(MainLevel.slowed){
+			MainLevel.endSlow = Time.time + level*10;
+		}
+		else {
+			Time.timeScale = 1 - 0.2*level;
+			CarMovement.SPEED *= 1/Time.timeScale * 0.75; 
+			MainLevel.endSlow = Time.time + level*10;
+		}
+	}
+	if(s.ToLower().Equals("@")){
+		var level2 : int = PlayerPrefs.GetInt("Speed");
+		if(MainLevel.spedup){
+			MainLevel.endSpeed = Time.time + level2*10;
+		}
+		else {
+			CarMovement.SPEED = 10+PlayerPrefs.GetInt("Speed")*3;
+			MainLevel.endSpeed = Time.time + level2*10;
+		}
+	}
 }
 
 function calculateValue( i : int){
@@ -138,9 +171,13 @@ function getLength(){
 }
 
 function submitWord(){
-	score += calculateValueInt(tempscore);
+	gameScore += calculateValueInt(tempscore);
 	if(getLength() > 4){
 		timer.addTime(10);
+	}
+	if(MainLevel.longestword.length < getLength()){
+		var word :String = getWord();
+		MainLevel.newLongestWord(word);
 	}
 	clearLetters();
 	tempscore = 0;

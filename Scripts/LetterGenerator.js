@@ -29,6 +29,8 @@ var letterX: GameObject;
 var letterY: GameObject;
 var letterZ: GameObject;
 
+var slow: GameObject;
+var speed: GameObject;
 
 var spawntime = 1.0;
 
@@ -40,7 +42,15 @@ var position : float;
 var number : float;
 var time: float;
 
+var slowdownRate : int;
+var speedRate: int;
+var doubleRate: int;
+
 function Start () {
+	slowdownRate = PlayerPrefs.GetInt("Slowdown");
+	speedRate = PlayerPrefs.GetInt("Speed");
+	doubleRate = PlayerPrefs.GetInt("Double");
+
 	time = Time.fixedTime + 4;
 }
 
@@ -53,6 +63,15 @@ function Update () {
 		}
 	}
 	if (Time.fixedTime - time > spawntime) {
+		if(slowdownRate != 0){
+			generateSlow(slowdownRate);
+		}
+		if(speedRate != 0){
+			generateSpeed(speedRate);
+		}
+		if(doubleRate != 0){
+			generateDouble(doubleRate);
+		}
 		RandomLetter();
 		RandomNumber();
 		var clone : Transform;
@@ -60,6 +79,15 @@ function Update () {
 			newObject.transform.rotation);
 		
 		if(Random.value > probmult && Time.fixedTime - time > spawntime2){
+			if(slowdownRate != 0){
+				generateSlow(slowdownRate);
+			}
+			if(speedRate != 0){
+				generateSpeed(speedRate);
+			}
+			if(doubleRate != 0){
+				generateDouble(doubleRate);
+			}
 			RandomLetter();
 			RandomNumber();
 			Instantiate(newObject.transform, Vector3(position , -5, 10) , newObject.transform.rotation);
@@ -168,4 +196,45 @@ else if(number < 98){
 object = letterZ;
 }
 newObject = object.transform;
+}
+
+function generateSlow(i: int){
+	var object: GameObject;
+	var randomvar = Random.value*100;
+	if(i > randomvar){	
+		object = slow;
+		newObject = object.transform;
+	
+		var clone : Transform;
+		clone = Instantiate(newObject.transform, Vector3(position , 2 , 10 ) , 
+			newObject.transform.rotation);
+	}
+}
+
+function generateSpeed(i: int){
+	var object: GameObject;
+	position = Random.value*10-1.5;
+	var randomvar = Random.value*100;
+	if(i > randomvar){	
+		object = speed;
+		newObject = object.transform;
+	
+		var clone : Transform;
+		clone = Instantiate(newObject.transform, Vector3(position , 0.5 , 10 ) , 
+			newObject.transform.rotation);
+	}
+}
+
+function generateDouble(i: int){
+	var object: GameObject;
+	position = Random.value*10-1.5;
+	var randomvar = Random.value*100;
+	if(i > randomvar){	
+		object = slow;
+		newObject = object.transform;
+	
+		var clone : Transform;
+		clone = Instantiate(newObject.transform, Vector3(position , 1 , 10 ) , 
+			newObject.transform.rotation);
+	}
 }

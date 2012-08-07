@@ -9,10 +9,11 @@
 var texture : Texture;
 
 //Variables that are used in counting down
-var gameEnd: boolean = false;
+static var gameEnd: boolean = false;
+
 var startTime : float;
 var restSeconds : int = 3;
-var roundedRestSeconds : int;
+var roundedRestSeconds : int = 180;
 private var displaySeconds : int;
 private var displayMinutes : int;
 var countDownSeconds : int = 180;
@@ -21,8 +22,9 @@ var countDownSeconds : int = 180;
 var font : Font;
 
 function Awake(){
-startTime = Time.time;
-countDownSeconds = 180;
+	startTime = Time.time;
+	countDownSeconds = 180;
+	roundedRestSeconds = 180;
 }
 
 function OnGUI(){
@@ -76,8 +78,4 @@ function getSecondsLeft(){
 
 function addTime(i: int){
 	countDownSeconds += i;
-}
-
-function slowTime(i: int){
-	Time.timeScale = (double)(1/i);
 }

@@ -1,5 +1,5 @@
 #pragma strict
-var speed : float = 10.0;
+static var SPEED : float = 10.0;
 
 
 function Start () {
@@ -7,7 +7,7 @@ function Start () {
 }
 
 function Update () {
-	var x : float = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+	var x : float = Input.GetAxis("Horizontal") * Time.deltaTime * SPEED;
 	
 	if((!(this.gameObject.transform.position.x < -8) && x < 0) || 
 	(!(this.gameObject.transform.position.x > 8) && x > 0)){
@@ -16,7 +16,7 @@ function Update () {
 	var dir : Vector3 = Vector3.zero;
 	dir.x = -Input.acceleration.y;
 	
-	var y : float = dir.x * Time.deltaTime * speed;
+	var y : float = dir.x * Time.deltaTime * SPEED;
 	if((!(this.gameObject.transform.position.x < -8) && y < 0) || 
 	(!(this.gameObject.transform.position.x > 8) && y > 0)){
 		if(dir.x > 0.02){

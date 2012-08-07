@@ -11,8 +11,6 @@ var time : float;
 
 function Start () {
 time = Time.fixedTime;
-
-
 }
 
 function Update () {
