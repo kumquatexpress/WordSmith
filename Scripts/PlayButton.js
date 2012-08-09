@@ -34,9 +34,8 @@ GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (hori
  var mystyle : GUIStyle = new GUIStyle();
  mystyle.font = font;
  mystyle.alignment = TextAnchor.MiddleCenter;
- mystyle.normal.textColor = Color.white;
+ mystyle.normal.textColor = Color.black;
  mystyle.normal.background = playbutton;
- mystyle.onActive.background = playbuttonClicked;
 
 //Draws the initial background and the title
 GUI.DrawTexture(Rect(0,0,1024,640), pictureBackground);
@@ -51,13 +50,10 @@ GUI.Label(Rect(130,0,800,200), title);
         Application.LoadLevel("VersionLevels");
         }
     }
-    if (GUI.Button(Rect(50,255,400,80),"Time Trials", mystyle)){
-        Application.LoadLevel("Menu");
+    if (GUI.Button(Rect(50,255,400,80),"Tutorial", mystyle)){
+        Application.LoadLevel("LoadingTutorial");
         }
-    if (GUI.Button(Rect(50,345,400,80),"Options", mystyle)){
-        Application.LoadLevel("Menu");
-        }
-    if (GUI.Button(Rect(50,435,400,80),"Store", mystyle)){
+    if (GUI.Button(Rect(50,345,400,80),"Store", mystyle)){
         Application.LoadLevel("Menu");
         Application.LoadLevel("Store");
         }

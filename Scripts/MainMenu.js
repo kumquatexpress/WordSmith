@@ -1,6 +1,5 @@
 
 function Awake(){
-	Debug.Log("awake started");
 		PlayerPrefs.DeleteAll();
 	
 	if(!PlayerPrefs.GetString("FirstTime").Equals("False")){
@@ -9,8 +8,8 @@ function Awake(){
 		PlayerPrefs.SetInt("SpeedCost", 250);		
 		PlayerPrefs.SetInt("DoubleCost", 250);
 		PlayerPrefs.SetInt("Money", 700);
-		PlayerPrefs.SetInt("Slowdown", 2);
-		PlayerPrefs.SetInt("Speed", 2);
+		PlayerPrefs.SetInt("Slowdown", 1);
+		PlayerPrefs.SetInt("Speed", 1);
 		PlayerPrefs.SetInt("Double", 0);
 		PlayerPrefs.SetString("FirstTime", "False");
 		PlayerPrefs.SetInt("HighScore", 0);

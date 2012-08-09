@@ -3,7 +3,7 @@ var projectile : GameObject;
 var time: float;
 var timer : Timer;
 var x : int = 0;
-static var SPEED = -7;
+static var SPEED : float = -7.0;
 
 function Start () {
 	projectile.name = projectile.name.Substring(0,1);
@@ -33,7 +33,6 @@ function Update () {
 //Called when the letter touches the trigger contained in the holder
 function OnTriggerEnter(other : Collider)
 {       
-	projectile.animation.Play("CatchLetter");
 	Destroy(projectile);
     GameObject.FindWithTag("MainCamera").GetComponent(LetterHolder).addLetter(projectile.name);
 }

@@ -5,26 +5,23 @@
  *It determines when the game ends.
  */
 
-//Appearance of the timer
-var texture : Texture;
-
 //Variables that are used in counting down
 static var gameEnd: boolean = false;
 
 var startTime : float;
 var restSeconds : int = 3;
-var roundedRestSeconds : int = 180;
+var roundedRestSeconds : int;
 private var displaySeconds : int;
 private var displayMinutes : int;
-var countDownSeconds : int = 180;
+var countDownSeconds : int;
 
 //Appearance of the font used in the timer
 var font : Font;
 
 function Awake(){
 	startTime = Time.time;
-	countDownSeconds = 180;
-	roundedRestSeconds = 180;
+	countDownSeconds = 120;
+	roundedRestSeconds = 120;
 }
 
 function OnGUI(){
@@ -63,7 +60,7 @@ function Update () {
 		Time.timeScale = 0;
 		}
 	}
-	if (restSeconds < 3 || roundedRestSeconds == 0) {
+	if (restSeconds < 3 && roundedRestSeconds == 0) {
 		gameEnd = true;
 	}
 }

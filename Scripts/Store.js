@@ -33,7 +33,6 @@ function OnGUI(){
 	
 	//Makes letters appear white/visible
 	var mystyle : GUIStyle = new GUIStyle();
-	mystyle.font = font;
 	mystyle.normal.textColor = Color.white;
 	mystyle.font = headingFont;
 	
