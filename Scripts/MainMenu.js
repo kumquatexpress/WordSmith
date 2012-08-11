@@ -1,7 +1,5 @@
 
-function Awake(){
-		PlayerPrefs.DeleteAll();
-	
+function Awake(){	
 	if(!PlayerPrefs.GetString("FirstTime").Equals("False")){
 		Debug.Log("starting first time imports");
 		PlayerPrefs.SetInt("SlowCost", 250);

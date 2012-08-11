@@ -19,8 +19,11 @@ function Awake() {
 	if(wordLength > 5){
 		multiplier = 2;
 	}
-	else if(wordLength > 7){
+	if(wordLength > 7){
 		multiplier = 3;
+	}
+	if(wordLength > 9){
+		multiplier = 4;
 	}
 	else{
 		multiplier = 1;
@@ -58,9 +61,7 @@ function OnGUI(){
 		color = Color(0.2,0.6,0.1);
 		mystyle.normal.textColor = color;
 		
-		if(wordLength > 5){
-			GUI.Label(Rect(50,250,600,50),multiplier+"x",mystyle);
-		}
+		GUI.Label(Rect(50,250,600,50),"Multiplier Earned: "+multiplier+"x",mystyle);
 	}	
 	if(time > 4.8){
 		mystyle.normal.textColor = Color.red;

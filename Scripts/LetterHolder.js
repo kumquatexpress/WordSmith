@@ -11,9 +11,15 @@ var lettertext : String = "";
 var scoretext : String = "";
 var tempscoretext: String = "";
 var longestword : String = "";
+
+var showwordscore : String = "";
+var showword = false;
+var showwordtime : float;
 // Use this for initialization
 
 function Start(){
+	gameScore = 0;
+	tempscore = 0;
 	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
 }
 
@@ -32,6 +38,12 @@ function OnGUI () {
 	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
 	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
 	
+	if(showword){
+		var showstyle : GUIStyle = new GUIStyle(mystyle);
+		showstyle.normal.textColor = Color.green;
+		GUI.Label(Rect(10,420,400,120), showwordscore, showstyle);
+	}
+	
 	if(letters.length > 3){
 	GUI.color = Color.red;
 	}
@@ -44,29 +56,38 @@ function OnGUI () {
 }
 
 // Update is called once per frame
-function Update () {;
-
+function Update () {
 	lettertext = "Letters: " + '\n' + getText();
 	scoretext = "Score: " + gameScore.ToString();
 	tempscoretext = "Current Value: " + calculateValue(tempscore);
 	longestword = "Longest word: " + MainLevel.longestword;
 	
+	if(Time.timeSinceLevelLoad > showwordtime+2 && showword){
+		showword = false;
+	}	
 	if(Input.GetKey(KeyCode.Space)){
-		if(Dictionary.checkForWord(getWord())){
-			submitWord();
-		}
-		else{
-			clearLetters();
-			tempscore = 0;
+		if(!getWord().Equals("")){
+			if(Dictionary.checkForWord(getWord())){
+				submitWord();
+			}
+			else{
+				notAWord();
+				clearLetters();
+				tempscore = 0;
+			}
+		
 		}
 	}
 	if(Input.touchCount  == 1){
-		if(Dictionary.checkForWord(getWord())){
-			submitWord();
-		}
-		else {
-			clearLetters();
-			tempscore = 0;
+		if(!getWord().Equals("")){
+			if(Dictionary.checkForWord(getWord())){
+				submitWord();
+			}
+			else {
+				notAWord();
+				clearLetters();
+				tempscore = 0;
+			}
 		}
 	}
 
@@ -144,16 +165,17 @@ function calculateValue( i : int){
 }
 
 function calculateValueInt(i : int){
+	var retval :int = i;
 	if(getLength() > 3){
-		return i*2;
+		retval = i*2;
 	}
 	if(getLength() > 5){
-		return i*3;
+		retval = i*3;
 	}
 	if(getLength() > 7){
-		return  i*4;
+		retval = i*4;
 	}
-	return i;
+	return retval;
 }
 
 function clearLetters(){
@@ -192,6 +214,24 @@ function submitWord(){
 		longestword = getWord();
 		MainLevel.newLongestWord(longestword);
 	}
+	//show the label for word and points to the user
+	showWordLabel();
+	
 	clearLetters();
 	tempscore = 0;
+}
+
+//set the time of the label showing and flip the flag to true
+function showWordLabel(){
+	Debug.Log("wordlabel should be shown");
+	showwordtime = Time.timeSinceLevelLoad;
+	showwordscore = getWord() +"\nfor "+calculateValueInt(tempscore)+" points";
+	showword = true;
+}
+
+function notAWord(){
+	Debug.Log("wordlabel should be shown");
+	showwordtime = Time.timeSinceLevelLoad;
+	showwordscore = getWord()+" is \n not a word!";
+	showword = true;
 }

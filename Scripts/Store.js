@@ -6,6 +6,7 @@ static var doubleGenerateRate: int;
 static var money : int;
 
 //Font(appearance only) for the labels
+var pictureBackground: Texture2D;
 var headingFont: Font;
 var font: Font;
 
@@ -31,9 +32,12 @@ function OnGUI(){
 	var vertRatio : float  = Screen.height / 640.0;
 	GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (horizRatio, vertRatio, 1));
 	
+	//draw the background
+	GUI.DrawTexture(Rect(0,0,1024,640), pictureBackground);
+		
 	//Makes letters appear white/visible
 	var mystyle : GUIStyle = new GUIStyle();
-	mystyle.normal.textColor = Color.white;
+	mystyle.normal.textColor = Color.black;
 	mystyle.font = headingFont;
 	
 	//Instantiate labels and their corresponding buttons. Buttons are 

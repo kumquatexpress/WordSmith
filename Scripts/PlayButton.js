@@ -36,10 +36,11 @@ GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (hori
  mystyle.alignment = TextAnchor.MiddleCenter;
  mystyle.normal.textColor = Color.black;
  mystyle.normal.background = playbutton;
+ mystyle.hover.background = playbuttonClicked;
 
 //Draws the initial background and the title
 GUI.DrawTexture(Rect(0,0,1024,640), pictureBackground);
-GUI.Label(Rect(130,0,800,200), title);
+GUI.Label(Rect(0,28,800,200), title);
 
 	//initializes buttons and gives them the onclick definition
     if (GUI.Button(Rect(50,165,400,80),"Play", mystyle)){
@@ -57,4 +58,19 @@ GUI.Label(Rect(130,0,800,200), title);
         Application.LoadLevel("Menu");
         Application.LoadLevel("Store");
         }
+    if (GUI.Button(Rect(900,600,120,40), "Reset my account")){
+    	PlayerPrefs.DeleteAll();
+    	if(!PlayerPrefs.GetString("FirstTime").Equals("False")){
+			Debug.Log("starting first time imports");
+			PlayerPrefs.SetInt("SlowCost", 250);
+			PlayerPrefs.SetInt("SpeedCost", 250);		
+			PlayerPrefs.SetInt("DoubleCost", 250);
+			PlayerPrefs.SetInt("Money", 700);
+			PlayerPrefs.SetInt("Slowdown", 1);
+			PlayerPrefs.SetInt("Speed", 1);
+			PlayerPrefs.SetInt("Double", 0);
+			PlayerPrefs.SetString("FirstTime", "False");
+			PlayerPrefs.SetInt("HighScore", 0);
+		}
+    }
 }
