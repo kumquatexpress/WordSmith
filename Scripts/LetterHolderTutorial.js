@@ -5,22 +5,24 @@ var letters = new Array();
 static var gameScore = 0;
 var tempscore = 0;
 
-var timer : Timer;
-
 var lettertext : String = "";
 var scoretext : String = "";
 var tempscoretext: String = "";
 var longestword : String = "";
 
+//normal mode timer
+var timer : Timer;
+
 var showwordscore : String = "";
 var showword = false;
 var showwordtime : float;
-
-// Use this for initialization
+// ENDLESS MODE LIVES LEFT
+static var livesleft : int = 5;
 
 function Start(){
 	gameScore = 0;
 	tempscore = 0;
+	livesleft = 5;
 	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
 }
 
@@ -32,9 +34,13 @@ function OnGUI () {
 	
 	var mystyle : GUIStyle = new GUIStyle();
 	mystyle.font = font;
-	mystyle.normal.textColor = Color.white;
+
+	//ENDLESS MODE GUILABEL FOR LIVES
+	mystyle.normal.textColor = Color.cyan;
+	GUI.Label(Rect(870,480,150,40), "Lives left: "+livesleft, mystyle);
 
 	//instantiates the letter display and the score display
+	mystyle.normal.textColor = Color.white;
 	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle);
 	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
 	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
@@ -58,9 +64,7 @@ function OnGUI () {
 
 // Update is called once per frame
 function Update () {
-	if(MainLevel.doublecount < 1){
-		MainLevel.doubled = false;
-	}
+
 	lettertext = "Letters: " + '\n' + getText();
 	scoretext = "Score: " + gameScore.ToString();
 	tempscoretext = "Current Value: " + calculateValue(tempscore);
@@ -114,10 +118,6 @@ function addLetter(s: String){
 		}
 	}
 	//add letterscore to the score display
-	if(MainLevel.doubled){
-		MainLevel.doublecount -= 1;
-		letterscore *= 2;
-	}
 	tempscore += letterscore;
 }
 
@@ -156,16 +156,6 @@ function addBuff(s : String){
 			CarMovement.SPEED = 10+PlayerPrefs.GetInt("Speed")*3;
 			MainLevel.endSpeed = Time.timeSinceLevelLoad + level2*10;
 		}
-	}
-	if(s.ToLower().Equals("#")){
-		var level3 : int = PlayerPrefs.GetInt("Double");
-		if(MainLevel.doubled){
-			MainLevel.doublecount = level3*2;
-		}
-		else {
-			MainLevel.doubled = true;
-			MainLevel.doublecount = level3*2;
-		}			
 	}
 }
 
@@ -248,6 +238,7 @@ function showWordLabel(){
 }
 
 function notAWord(){
+	livesleft -= 1;
 	Debug.Log("wordlabel should be shown");
 	showwordtime = Time.timeSinceLevelLoad;
 	showwordscore = getWord()+" is \n not a word!";

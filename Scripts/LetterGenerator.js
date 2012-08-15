@@ -31,8 +31,9 @@ var letterZ: GameObject;
 
 var slow: GameObject;
 var speed: GameObject;
+var doubled: GameObject;
 
-var spawntime = 1.0;
+var spawntime = 1.1;
 
 var spawntime2 = 1.52;
 
@@ -51,18 +52,18 @@ function Start () {
 	speedRate = PlayerPrefs.GetInt("Speed");
 	doubleRate = PlayerPrefs.GetInt("Double");
 
-	time = Time.fixedTime + 4;
+	time = Time.timeSinceLevelLoad+4;
 }
 
 
 function Update () {
-	if(Time.fixedTime % 30 == 0 && spawntime > .4){
+	if(Time.timeSinceLevelLoad % 30 == 0 && spawntime > .4){
 		spawntime -= .1;
 		if(spawntime2 > .51){
 			spawntime2 -= .17;
 		}
 	}
-	if (Time.fixedTime - time > spawntime) {
+	if (Time.timeSinceLevelLoad - time > spawntime) {
 		if(slowdownRate != 0){
 			generateSlow(slowdownRate);
 		}
@@ -78,7 +79,7 @@ function Update () {
 		clone = Instantiate(newObject.transform, Vector3(position , -5 , 10 ) , 
 			newObject.transform.rotation);
 		
-		if(Random.value > probmult && Time.fixedTime - time > spawntime2){
+		if(Random.value > probmult && Time.timeSinceLevelLoad - time > spawntime2){
 			if(slowdownRate != 0){
 				generateSlow(slowdownRate);
 			}
@@ -93,7 +94,7 @@ function Update () {
 			Instantiate(newObject.transform, Vector3(position , -5, 10) , newObject.transform.rotation);
 		}
 		
-		time = Time.fixedTime;
+		time = Time.timeSinceLevelLoad;
 	}
 		
 }
@@ -230,7 +231,7 @@ function generateDouble(i: int){
 	position = Random.value*10-1.5;
 	var randomvar = Random.value*100;
 	if(i > randomvar){	
-		object = slow;
+		object = doubled;
 		newObject = object.transform;
 	
 		var clone : Transform;

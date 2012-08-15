@@ -75,7 +75,7 @@ function OnGUI(){
     }
 	
 	if(GUI.Button(Rect(650,550,160,80),"Play Again?")){
-		Application.LoadLevel("VersionLevels");
+		Application.LoadLevel("VersionEndless");
 	}
 	
 }

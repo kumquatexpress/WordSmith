@@ -1,14 +1,10 @@
 #pragma strict
 var projectile : GameObject;
-var time: float;
-var timer : Timer;
 var x : int = 0;
 static var SPEED : float = -7.0;
 
 function Start () {
 	projectile.name = projectile.name.Substring(0,1);
-	time = Time.timeSinceLevelLoad;
-	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
 }
 
 //Called continuously at the beginning of every frame
@@ -17,14 +13,14 @@ function Update () {
         // object's Z axis
         
         //Every 30 seconds, increase speed by 3 
-    x = SPEED - 3*((timer.countDownSeconds - timer.getSecondsLeft())/30);
+    x = SPEED - 3*(Time.timeSinceLevelLoad/30);
 	if(x < -19){
         x = -19;
     }
         //If the slowdown buff is applied, reduce speed
   	projectile.rigidbody.velocity = Vector3(0,0,x); 
 
-    if(projectile.transform.position.z < -30){
+    if(projectile.transform.position.z < -27){
         Destroy(projectile);
     }     
 }
@@ -34,6 +30,14 @@ function Update () {
 function OnTriggerEnter(other : Collider)
 {       
 	Destroy(projectile);
-    GameObject.FindWithTag("MainCamera").GetComponent(LetterHolder).addLetter(projectile.name);
+	if(Application.loadedLevelName.Equals("VersionLevels")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolder).addLetter(projectile.name);
+    }
+    if(Application.loadedLevelName.Equals("VersionEndless")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolderEndless).addLetter(projectile.name);
+    }
+    if(Application.loadedLevelName.Equals("VersionTutorial")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolderTutorial).addLetter(projectile.name);
+    }
 }
 

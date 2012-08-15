@@ -19,7 +19,7 @@ var countDownSeconds : int;
 var font : Font;
 
 function Awake(){
-	startTime = Time.time;
+	startTime = Time.timeSinceLevelLoad;
 	countDownSeconds = 120;
 	roundedRestSeconds = 120;
 }

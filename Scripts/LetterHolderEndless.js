@@ -5,8 +5,6 @@ var letters = new Array();
 static var gameScore = 0;
 var tempscore = 0;
 
-var timer : Timer;
-
 var lettertext : String = "";
 var scoretext : String = "";
 var tempscoretext: String = "";
@@ -15,13 +13,13 @@ var longestword : String = "";
 var showwordscore : String = "";
 var showword = false;
 var showwordtime : float;
-
-// Use this for initialization
+// ENDLESS MODE LIVES LEFT
+static var livesleft : int = 5;
 
 function Start(){
 	gameScore = 0;
 	tempscore = 0;
-	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
+	livesleft = 5;
 }
 
 function OnGUI () {
@@ -32,9 +30,13 @@ function OnGUI () {
 	
 	var mystyle : GUIStyle = new GUIStyle();
 	mystyle.font = font;
-	mystyle.normal.textColor = Color.white;
+
+	//ENDLESS MODE GUILABEL FOR LIVES
+	mystyle.normal.textColor = Color.cyan;
+	GUI.Label(Rect(870,480,150,40), "Lives left: "+livesleft, mystyle);
 
 	//instantiates the letter display and the score display
+	mystyle.normal.textColor = Color.white;
 	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle);
 	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
 	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
@@ -113,11 +115,11 @@ function addLetter(s: String){
 			case "Q": case "Z": letterscore += 10; break;
 		}
 	}
-	//add letterscore to the score display
 	if(MainLevel.doubled){
 		MainLevel.doublecount -= 1;
 		letterscore *= 2;
 	}
+	//add letterscore to the score display
 	tempscore += letterscore;
 }
 
@@ -225,9 +227,6 @@ function submitWord(){
 	if(tempscore > 0){
 		MainLevel.addWord();
 	}
-	if(getLength() > 4){
-		timer.addTime(10);
-	}
 	if(MainLevel.longestword.length < getLength()){
 		longestword = getWord();
 		MainLevel.newLongestWord(longestword);
@@ -248,6 +247,7 @@ function showWordLabel(){
 }
 
 function notAWord(){
+	livesleft -= 1;
 	Debug.Log("wordlabel should be shown");
 	showwordtime = Time.timeSinceLevelLoad;
 	showwordscore = getWord()+" is \n not a word!";

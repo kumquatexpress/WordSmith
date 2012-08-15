@@ -43,18 +43,16 @@ GUI.DrawTexture(Rect(0,0,1024,640), pictureBackground);
 GUI.Label(Rect(0,28,800,200), title);
 
 	//initializes buttons and gives them the onclick definition
-    if (GUI.Button(Rect(50,165,400,80),"Play", mystyle)){
-    if(Dictionary.getWords() == 0){
-        Application.LoadLevel("Loading");
-        }
-        else {
-        Application.LoadLevel("VersionLevels");
-        }
+    if (GUI.Button(Rect(50,165,400,80),"Play (Endless Mode)", mystyle)){
+        Application.LoadLevel("LoadingEndless");
     }
-    if (GUI.Button(Rect(50,255,400,80),"Tutorial", mystyle)){
+    if(GUI.Button(Rect(50,255,400,80),"Play Time Trials", mystyle)){
+    	Application.LoadLevel("Loading");
+    }
+    if (GUI.Button(Rect(50,345,400,80),"Tutorial", mystyle)){
         Application.LoadLevel("LoadingTutorial");
         }
-    if (GUI.Button(Rect(50,345,400,80),"Store", mystyle)){
+    if (GUI.Button(Rect(50,435,400,80),"Store", mystyle)){
         Application.LoadLevel("Menu");
         Application.LoadLevel("Store");
         }
@@ -68,7 +66,7 @@ GUI.Label(Rect(0,28,800,200), title);
 			PlayerPrefs.SetInt("Money", 700);
 			PlayerPrefs.SetInt("Slowdown", 1);
 			PlayerPrefs.SetInt("Speed", 1);
-			PlayerPrefs.SetInt("Double", 0);
+			PlayerPrefs.SetInt("Double", 1);
 			PlayerPrefs.SetString("FirstTime", "False");
 			PlayerPrefs.SetInt("HighScore", 0);
 		}

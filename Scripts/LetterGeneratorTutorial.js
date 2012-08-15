@@ -50,34 +50,34 @@ function Start () {
 	speedRate = PlayerPrefs.GetInt("Speed");
 	doubleRate = PlayerPrefs.GetInt("Double");
 
-	time = Time.fixedTime + 15;
+	time = Time.timeSinceLevelLoad + 18;
 }
 
 
 function Update () {
-	if(Time.fixedTime == 30){
+	if(Time.timeSinceLevelLoad == 30){
 		generateSpeed(101);
 	}
-	if(Time.fixedTime % 30 == 0 && spawntime > .4){
+	if(Time.timeSinceLevelLoad % 30 == 0 && spawntime > .4){
 		spawntime -= .1;
 		if(spawntime2 > .51){
 			spawntime2 -= .17;
 		}
 	}
-	if (Time.fixedTime - time > spawntime) {
+	if (Time.timeSinceLevelLoad - time > spawntime) {
 		RandomLetter();
 		RandomNumber();
 		var clone : Transform;
 		clone = Instantiate(newObject.transform, Vector3(position , -5 , 10 ) , 
 			newObject.transform.rotation);
 		
-		if(Random.value > probmult && Time.fixedTime - time > spawntime2){
+		if(Random.value > probmult && Time.timeSinceLevelLoad - time > spawntime2){
 			RandomLetter();
 			RandomNumber();
 			Instantiate(newObject.transform, Vector3(position , -5, 10) , newObject.transform.rotation);
 		}
 		
-		time = Time.fixedTime;
+		time = Time.timeSinceLevelLoad;
 	}
 		
 }

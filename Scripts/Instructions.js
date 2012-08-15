@@ -5,6 +5,7 @@ var font : Font;
 var color : Color;
 var textstring : String = "";
 var righttextstring : String = "";
+var bottomtextstring : String = "";
 var time : float;
 
 function Start () {
@@ -22,16 +23,23 @@ function OnGUI(){
 	 mystyle.font = font;
 	 mystyle.normal.textColor = color;
 
-	GUI.Label(Rect(670,150,330,300), righttextstring, mystyle);
+	GUI.Label(Rect(670,150,330,200), righttextstring, mystyle);
 	GUI.Label(Rect(20,70,350,300), textstring, mystyle);
+	GUI.Label(Rect(670,350,330,220), bottomtextstring, mystyle);
 }
 
 function Update () {
 	time = Time.timeSinceLevelLoad - 2;
+	//tutorial only, this is the point at which tutorial ends and main menu loads
+	if(time > 65){
+		Application.LoadLevel("Menu");
+	}	
+	//TOP RIGHT SIDE TEXT	
 	if(time > 25 && time < 30){
-		righttextstring = "This is how much time \n you have until the game ends.";
+		righttextstring = "In Time Trial mode, \nthis is how much time \n you have until the game ends.";
 	}
 	if(time > 30 && time < 40){
+		color = Color(0.7,0.4,0);
 		righttextstring = "";
 	}
 	if(time > 40 && time < 44){
@@ -46,6 +54,16 @@ function Update () {
 	if(time > 55){
 		righttextstring = "";
 	}
+	//BOTTOM RIGHT SIDE TEXT
+	if(time > 20 && time < 30){
+		color = Color.cyan;
+		bottomtextstring = "In normal play, this is the \nnumber of wrong words you can \nsubmit before the game ends.";
+	}
+	if(time > 30){
+		bottomtextstring = "";
+	}
+	
+	//LEFT SIDE TEXT	
 	if(time < 3){
 		textstring = "Welcome to WordSmith!";
 	}	
@@ -66,11 +84,11 @@ function Update () {
 		color = Color.red;
 		textstring = "If not, you'll have to start \n collecting letters again.";
 	}
-	else if(time > 18 && time < 21){
+	else if(time > 18 && time < 20){
 		color = Color.green;
 		textstring = "Get Ready!";
 	}
-	else if(time > 21 && time < 30){
+	else if(time > 20 && time < 30){
 		textstring = "";
 	}
 	else if(time > 30 && time < 36){
@@ -82,6 +100,6 @@ function Update () {
 		textstring = "";
 	}
 	else if (time > 60){
-		textstring = "That's about it; \n return to the menu via \n the pause button.";
+		textstring = "That's about it; \n you can return to the menu \n via the pause button.";
 	}
 }

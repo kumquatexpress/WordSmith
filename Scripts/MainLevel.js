@@ -9,6 +9,10 @@ var font : Font;
 static var endSlow : float;
 static var endSpeed : float;
 
+//double buff goes here
+static var doubled : boolean = false;
+static var doublecount : int = 0;
+
 
 // Use this for initialization
 function Start () {
@@ -34,6 +38,10 @@ function OnGUI(){
 		mystyle.normal.textColor = Color.green;
 		GUI.Label(Rect(30,200,155,50), "Sped up: "+(endSpeed-Time.timeSinceLevelLoad), mystyle);
 	}
+	if(doubled){
+		mystyle.normal.textColor = Color.cyan;
+		GUI.Label(Rect(30,250,155,50), "2x Letters Left: "+doublecount, mystyle);
+	}
 }
 
 // Update is called once per frame
@@ -47,10 +55,23 @@ function Update () {
 		spedup = false;
 		CarMovement.SPEED = 10.0;
 	}
-	if(Timer.gameEnd){
-		Time.timeScale = 0;
-		score = LetterHolder.gameScore;
-		Application.LoadLevel("ResultsPage");
+	if(Application.loadedLevelName.Equals("VersionLevels")){
+		if(Timer.gameEnd){
+			Time.timeScale = 0;
+			score = LetterHolder.gameScore;
+			Application.LoadLevel("ResultsPage");
+		}
+	}
+	if(Application.loadedLevelName.Equals("VersionEndless")){
+		if(Input.GetKey(KeyCode.P)){
+			score = LetterHolderEndless.gameScore;
+			Application.LoadLevel("ResultsPageEndless");
+		}
+		if(LetterHolderEndless.livesleft < 1){
+			Time.timeScale = 0;
+			score = LetterHolderEndless.gameScore;
+			Application.LoadLevel("ResultsPageEndless");
+		}
 	}
 }
 

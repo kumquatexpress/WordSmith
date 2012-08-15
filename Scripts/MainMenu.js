@@ -8,7 +8,7 @@ function Awake(){
 		PlayerPrefs.SetInt("Money", 700);
 		PlayerPrefs.SetInt("Slowdown", 1);
 		PlayerPrefs.SetInt("Speed", 1);
-		PlayerPrefs.SetInt("Double", 0);
+		PlayerPrefs.SetInt("Double", 1);
 		PlayerPrefs.SetString("FirstTime", "False");
 		PlayerPrefs.SetInt("HighScore", 0);
 	}

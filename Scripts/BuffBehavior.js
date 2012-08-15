@@ -2,14 +2,12 @@
 
 var projectile : GameObject;
 var time: float;
-var timer : Timer;
 var x : int = 0;
 static var SPEED = -7;
 
 function Start () {
 	projectile.name = projectile.name.Substring(0,1);
 	time = Time.timeSinceLevelLoad;
-	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
 }
 
 //Called continuously at the beginning of every frame
@@ -18,7 +16,7 @@ function Update () {
         // object's Z axis
         
         //Every 30 seconds, increase speed by 3 
-    x = SPEED - 3*((timer.countDownSeconds - timer.getSecondsLeft())/30);
+    x = SPEED - 3*((Time.timeSinceLevelLoad - time)/30);
 	if(x < -19){
         x = -19;
     }
@@ -34,7 +32,14 @@ function Update () {
 //Called when the letter touches the trigger contained in the holder
 function OnTriggerEnter(other : Collider)
 {       
-	projectile.animation.Play("CatchLetter");
 	Destroy(projectile);
-    GameObject.FindWithTag("MainCamera").GetComponent(LetterHolder).addBuff(projectile.name);
+	if(Application.loadedLevelName.Equals("VersionLevels")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolder).addBuff(projectile.name);
+    }
+    if(Application.loadedLevelName.Equals("VersionEndless")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolderEndless).addBuff(projectile.name);
+    }
+    if(Application.loadedLevelName.Equals("VersionTutorial")){
+    	GameObject.FindWithTag("MainCamera").GetComponent(LetterHolderTutorial).addBuff(projectile.name);
+    }
 }

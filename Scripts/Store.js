@@ -12,7 +12,7 @@ var font: Font;
 
 var powerupTag: Rect = Rect(0, 0, 600, 60);
 var moneyTag: Rect = Rect(800, 0, 200, 60);
-var moneyheading1 : String = "Money: "+money.ToString();
+var moneyheading1 : String = "Credits: "+money.ToString();
 
 //powerup levels saved locally
 var slowCost: int;
