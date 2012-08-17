@@ -5,11 +5,13 @@ var totalnumwords : int;
 var font : Font;
 var multiplier : int;
 var pictureBackground : Texture2D;
+var highscorepicture : Texture2D;
 var money : int;
 
 var finalscore : int;
 
 var time: float;
+var highscore : int;
 // Use this for initialization
 function Awake() {
 	score = MainLevel.score;
@@ -33,6 +35,7 @@ function Awake() {
 }
 
 function Start(){
+	highscore = PlayerPrefs.GetInt("Highscore");
 	time = Time.timeSinceLevelLoad;
 	Time.timeScale = 1;
 	PlayerPrefs.SetInt("Money", money+finalscore);
@@ -46,7 +49,7 @@ function OnGUI(){
 
 	GUI.DrawTexture(Rect(0,0,1024,640), pictureBackground);
 	
-	var color : Color = Color(0.15,0.87,0.38);
+	var color : Color = Color(0.15,0.3,0.67);
 	var mystyle : GUIStyle = new GUIStyle();
 	mystyle.font = font;
 	mystyle.normal.textColor = color;
@@ -67,6 +70,16 @@ function OnGUI(){
 		
 		GUI.Label(Rect(50,370,600,80),"Your total credits... " +money+"+"+finalscore
 		+"="+(money+finalscore), mystyle);
+	}
+	if(time > 5.5){
+		var displayNewScore : boolean = false;
+		if(finalscore > highscore){
+			PlayerPrefs.SetInt("Highscore", finalscore);
+			displayNewScore = true;
+		}
+		if(displayNewScore){
+			GUI.DrawTexture(Rect(400,250,400,200), highscorepicture);
+		}
 	}
 	
 	if(GUI.Button(Rect(840,550,

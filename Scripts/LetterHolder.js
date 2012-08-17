@@ -1,19 +1,19 @@
 
 var font : Font;
 
-var letters = new Array();
+static var letters = new Array();
 static var gameScore = 0;
 var tempscore = 0;
 
 var timer : Timer;
 
-var lettertext : String = "";
-var scoretext : String = "";
-var tempscoretext: String = "";
-var longestword : String = "";
+static var lettertext : String = "";
+static var scoretext : String = "";
+static var tempscoretext: String = "";
+static var longestword : String = "";
 
-var showwordscore : String = "";
-var showword = false;
+static var showwordscore : String = "";
+static var showword = false;
 var showwordtime : float;
 
 // Use this for initialization
@@ -22,38 +22,6 @@ function Start(){
 	gameScore = 0;
 	tempscore = 0;
 	timer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent("Timer");
-}
-
-function OnGUI () {
-
-	var horizRatio : float = Screen.width / 1024.0;
-	var vertRatio : float  = Screen.height / 600.0;
-	GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (horizRatio, vertRatio, 1));
-	
-	var mystyle : GUIStyle = new GUIStyle();
-	mystyle.font = font;
-	mystyle.normal.textColor = Color.white;
-
-	//instantiates the letter display and the score display
-	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle);
-	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
-	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
-	
-	if(showword){
-		var showstyle : GUIStyle = new GUIStyle(mystyle);
-		showstyle.normal.textColor = Color.green;
-		GUI.Label(Rect(10,420,400,120), showwordscore, showstyle);
-	}
-	
-	if(letters.length > 3){
-	GUI.color = Color.red;
-	}
-	else{
-	GUI.color = Color.white;
-	}
-
-	GUI.Label(Rect(682,50,400,40), tempscoretext, mystyle);
-	
 }
 
 // Update is called once per frame

@@ -25,7 +25,7 @@ function Awake(){
 }
 
 function OnGUI(){
-//Converts a default 1024x600 screen to the current screen size
+//Converts a default 1024x640 screen to the current screen size
 var horizRatio : float = Screen.width / 1024.0;
 var vertRatio : float  = Screen.height / 640.0;
 GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (horizRatio, vertRatio, 1));

@@ -10,7 +10,8 @@ function Awake(){
 		PlayerPrefs.SetInt("Speed", 1);
 		PlayerPrefs.SetInt("Double", 1);
 		PlayerPrefs.SetString("FirstTime", "False");
-		PlayerPrefs.SetInt("HighScore", 0);
+		PlayerPrefs.SetInt("Highscore", 0);
+		PlayerPrefs.SetInt("HighscoreEndless", 0);
 	}
 }
 

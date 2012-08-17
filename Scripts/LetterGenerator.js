@@ -33,9 +33,9 @@ var slow: GameObject;
 var speed: GameObject;
 var doubled: GameObject;
 
-var spawntime = 1.1;
+var spawntime = 0.8;
 
-var spawntime2 = 1.52;
+var spawntime2 = 0.855;
 
 var probmult = 0.4;
 
@@ -57,10 +57,13 @@ function Start () {
 
 
 function Update () {
-	if(Time.timeSinceLevelLoad % 30 == 0 && spawntime > .4){
-		spawntime -= .1;
-		if(spawntime2 > .51){
-			spawntime2 -= .17;
+	Debug.Log(spawntime);
+	Debug.Log(Time.timeSinceLevelLoad);
+	
+	if(Time.timeSinceLevelLoad % 15 < Time.deltaTime && spawntime > .299){
+		spawntime -= .117;
+		if(spawntime2 > .32){
+			spawntime2 -= .122;
 		}
 	}
 	if (Time.timeSinceLevelLoad - time > spawntime) {

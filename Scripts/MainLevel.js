@@ -1,5 +1,5 @@
 static var score : int;
-static var longestword : String;
+static var longestword : String = "";
 static var slowed : boolean;
 static var spedup : boolean;
 static var totalnumwords : int;
@@ -13,6 +13,13 @@ static var endSpeed : float;
 static var doubled : boolean = false;
 static var doublecount : int = 0;
 
+//second part of ongui functions
+var lettertext : String = "";
+var scoretext : String = "";
+var tempscoretext: String = "";
+var templongestword : String = "";
+var showword : boolean;
+var showwordscore : String = "";
 
 // Use this for initialization
 function Start () {
@@ -40,13 +47,56 @@ function OnGUI(){
 	}
 	if(doubled){
 		mystyle.normal.textColor = Color.cyan;
-		GUI.Label(Rect(30,250,155,50), "2x Letters Left: "+doublecount, mystyle);
+		GUI.Label(Rect(30,250,155,70), "2x Letters \nLeft: "+doublecount, mystyle);
 	}
+	
+	var mystyle2 : GUIStyle = new GUIStyle();
+	mystyle2.font = font;
+	mystyle2.normal.textColor = Color.white;
+
+	//instantiates the letter display and the score display
+	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle2);
+	GUI.Label(Rect(780,10,300,40), scoretext, mystyle2);
+	GUI.Label(Rect(250,0,400,40), templongestword, mystyle2);
+	
+	if(showword){
+		var showstyle : GUIStyle = new GUIStyle(mystyle2);
+		showstyle.normal.textColor = Color.green;
+		GUI.Label(Rect(10,420,400,120), showwordscore, showstyle);
+	}
+	
+	if(Application.loadedLevelName.Equals("VersionEndless")){
+		//ENDLESS MODE GUILABEL FOR LIVES
+		mystyle.normal.textColor = Color.cyan;
+		GUI.Label(Rect(870,480,150,40), "Lives left: "+LetterHolderEndless.livesleft, mystyle);
+	}
+	
+	if(LetterHolder.letters.length > 4){
+	GUI.color = Color.red;
+	}
+	else{
+	GUI.color = Color.white;
+	}
+
+	GUI.Label(Rect(682,50,400,40), tempscoretext, mystyle2);
 }
 
 // Update is called once per frame
 function Update () {
-
+	if(Application.loadedLevelName.Equals("VersionLevels")){
+		lettertext = LetterHolder.lettertext;
+		scoretext = LetterHolder.scoretext;
+		tempscoretext = LetterHolder.tempscoretext;
+		templongestword = LetterHolder.longestword;
+		showword = LetterHolder.showword;
+	}
+	if(Application.loadedLevelName.Equals("VersionEndless")){
+		lettertext = LetterHolderEndless.lettertext;
+		scoretext = LetterHolderEndless.scoretext;
+		tempscoretext = LetterHolderEndless.tempscoretext;
+		templongestword = LetterHolderEndless.longestword;
+		showwordscore = LetterHolder.showwordscore;
+	}
 	if(Time.timeSinceLevelLoad > endSlow && !ReturnToMenu.paused){
 		slowed = false;
 		Time.timeScale = 1.0;

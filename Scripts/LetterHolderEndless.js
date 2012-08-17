@@ -1,17 +1,17 @@
 
 var font : Font;
 
-var letters = new Array();
+static var letters = new Array();
 static var gameScore = 0;
 var tempscore = 0;
 
-var lettertext : String = "";
-var scoretext : String = "";
-var tempscoretext: String = "";
-var longestword : String = "";
+static var lettertext : String = "";
+static var scoretext : String = "";
+static var tempscoretext: String = "";
+static var longestword : String = "";
 
-var showwordscore : String = "";
-var showword = false;
+static var showwordscore : String = "";
+static var showword = false;
 var showwordtime : float;
 // ENDLESS MODE LIVES LEFT
 static var livesleft : int = 5;
@@ -21,43 +21,6 @@ function Start(){
 	tempscore = 0;
 	livesleft = 5;
 }
-
-function OnGUI () {
-
-	var horizRatio : float = Screen.width / 1024.0;
-	var vertRatio : float  = Screen.height / 600.0;
-	GUI.matrix = Matrix4x4.TRS (Vector3(0, 0, 0), Quaternion.identity, Vector3 (horizRatio, vertRatio, 1));
-	
-	var mystyle : GUIStyle = new GUIStyle();
-	mystyle.font = font;
-
-	//ENDLESS MODE GUILABEL FOR LIVES
-	mystyle.normal.textColor = Color.cyan;
-	GUI.Label(Rect(870,480,150,40), "Lives left: "+livesleft, mystyle);
-
-	//instantiates the letter display and the score display
-	mystyle.normal.textColor = Color.white;
-	GUI.Label(Rect(10, 10, 300,150), lettertext, mystyle);
-	GUI.Label(Rect(780,10,300,40), scoretext, mystyle);
-	GUI.Label(Rect(250,0,400,40), longestword, mystyle);
-	
-	if(showword){
-		var showstyle : GUIStyle = new GUIStyle(mystyle);
-		showstyle.normal.textColor = Color.green;
-		GUI.Label(Rect(10,420,400,120), showwordscore, showstyle);
-	}
-	
-	if(letters.length > 3){
-	GUI.color = Color.red;
-	}
-	else{
-	GUI.color = Color.white;
-	}
-
-	GUI.Label(Rect(682,50,400,40), tempscoretext, mystyle);
-	
-}
-
 // Update is called once per frame
 function Update () {
 	if(MainLevel.doublecount < 1){

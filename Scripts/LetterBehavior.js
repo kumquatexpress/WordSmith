@@ -13,7 +13,7 @@ function Update () {
         // object's Z axis
         
         //Every 30 seconds, increase speed by 3 
-    x = SPEED - 3*(Time.timeSinceLevelLoad/30);
+    x = SPEED - 3*(Time.timeSinceLevelLoad/15);
 	if(x < -19){
         x = -19;
     }
