@@ -15,13 +15,6 @@ var pictureBackground: Texture2D;
 var title: Texture2D;
 
 
-function Start () {
-
-}
-function Update () {
-
-}
-
 //What happens when the GUI loads, beginning of scripting
 
 function OnGUI(){

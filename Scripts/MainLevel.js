@@ -89,13 +89,15 @@ function Update () {
 		tempscoretext = LetterHolder.tempscoretext;
 		templongestword = LetterHolder.longestword;
 		showword = LetterHolder.showword;
+		showwordscore = LetterHolder.showwordscore;
 	}
 	if(Application.loadedLevelName.Equals("VersionEndless")){
 		lettertext = LetterHolderEndless.lettertext;
 		scoretext = LetterHolderEndless.scoretext;
 		tempscoretext = LetterHolderEndless.tempscoretext;
 		templongestword = LetterHolderEndless.longestword;
-		showwordscore = LetterHolder.showwordscore;
+		showwordscore = LetterHolderEndless.showwordscore;
+		showword = LetterHolderEndless.showword;
 	}
 	if(Time.timeSinceLevelLoad > endSlow && !ReturnToMenu.paused){
 		slowed = false;
@@ -113,10 +115,6 @@ function Update () {
 		}
 	}
 	if(Application.loadedLevelName.Equals("VersionEndless")){
-		if(Input.GetKey(KeyCode.P)){
-			score = LetterHolderEndless.gameScore;
-			Application.LoadLevel("ResultsPageEndless");
-		}
 		if(LetterHolderEndless.livesleft < 1){
 			Time.timeScale = 0;
 			score = LetterHolderEndless.gameScore;

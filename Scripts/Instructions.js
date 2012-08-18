@@ -65,7 +65,7 @@ function Update () {
 	
 	//LEFT SIDE TEXT	
 	if(time < 3){
-		textstring = "Welcome to WordSmith!";
+		textstring = "Welcome to WordCraft!";
 	}	
 	else if(time > 3 && time < 6){
 		textstring = "Use the left and right \n arrow keys to move around.";
