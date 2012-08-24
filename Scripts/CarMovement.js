@@ -1,5 +1,5 @@
 #pragma strict
-static var SPEED : float = 10.0;
+static var SPEED : float = 12.0;
 
 
 function Start () {

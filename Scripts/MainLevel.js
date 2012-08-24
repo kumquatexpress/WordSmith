@@ -105,7 +105,7 @@ function Update () {
 	}
 	if(Time.timeSinceLevelLoad > endSpeed && !ReturnToMenu.paused){
 		spedup = false;
-		CarMovement.SPEED = 10.0;
+		CarMovement.SPEED = 12.0;
 	}
 	if(Application.loadedLevelName.Equals("VersionLevels")){
 		if(Timer.gameEnd){

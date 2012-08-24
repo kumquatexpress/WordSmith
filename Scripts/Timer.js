@@ -55,7 +55,7 @@ function Start () {
 }
 
 function Update () {
-	if(Time.fixedTime - startTime > 5){ 
+	if(Time.timeSinceLevelLoad - startTime > 5){ 
 		if(roundedRestSeconds == 0){
 		Time.timeScale = 0;
 		}
